@@ -1,24 +1,82 @@
-spots read      : 15,912,178
-reads read      : 31,824,356
-reads written   : 31,824,356
-spots read      : 15,743,684
-reads read      : 31,487,368
-reads written   : 31,487,368
-spots read      : 68,749,272
-reads read      : 137,498,544
-reads written   : 137,498,544
-spots read      : 67,959,092
-reads read      : 135,918,184
-reads written   : 135,918,184
-spots read      : 68,916,247
-reads read      : 137,832,494
-reads written   : 137,832,494
-spots read      : 106,256,199
-reads read      : 212,512,398
-reads written   : 212,512,398
-spots read      : 106,080,721
-reads read      : 212,161,442
-reads written   : 212,161,442
-spots read      : 105,461,127
-reads read      : 210,922,254
-reads written   : 210,922,254
+[E::bwa_idx_load_from_disk] fail to locate the index files
+[main_samview] fail to read the header from "-".
+[E::bwa_idx_load_from_disk] fail to locate the index files
+[main_samview] fail to read the header from "-".
+[E::bwa_idx_load_from_disk] fail to locate the index files
+[main_samview] fail to read the header from "-".
+[E::bwa_idx_load_from_disk] fail to locate the index files
+[main_samview] fail to read the header from "-".
+[E::bwa_idx_load_from_disk] fail to locate the index files
+[main_samview] fail to read the header from "-".
+[E::bwa_idx_load_from_disk] fail to locate the index files
+[main_samview] fail to read the header from "-".
+[E::bwa_idx_load_from_disk] fail to locate the index files
+[main_samview] fail to read the header from "-".
+[E::bwa_idx_load_from_disk] fail to locate the index files
+[main_samview] fail to read the header from "-".
+[E::bwa_idx_load_from_disk] fail to locate the index files
+[main_samview] fail to read the header from "-".
+[E::bwa_idx_load_from_disk] fail to locate the index files
+[main_samview] fail to read the header from "-".
+[E::bwa_idx_load_from_disk] fail to locate the index files
+[main_samview] fail to read the header from "-".
+[E::bwa_idx_load_from_disk] fail to locate the index files
+[main_samview] fail to read the header from "-".
+[E::bwa_idx_load_from_disk] fail to locate the index files
+[main_samview] fail to read the header from "-".
+[E::bwa_idx_load_from_disk] fail to locate the index files
+[main_samview] fail to read the header from "-".
+[E::bwa_idx_load_from_disk] fail to locate the index files
+[main_samview] fail to read the header from "-".
+[E::bwa_idx_load_from_disk] fail to locate the index files
+[main_samview] fail to read the header from "-".
+[E::bwa_idx_load_from_disk] fail to locate the index files
+[main_samview] fail to read the header from "-".
+[E::bwa_idx_load_from_disk] fail to locate the index files
+[main_samview] fail to read the header from "-".
+[E::bwa_idx_load_from_disk] fail to locate the index files
+[main_samview] fail to read the header from "-".
+[E::bwa_idx_load_from_disk] fail to locate the index files
+[main_samview] fail to read the header from "-".
+[W::hts_set_opt] Cannot change block size for this format
+samtools sort: failed to read header from "l10.bam"
+[W::hts_set_opt] Cannot change block size for this format
+samtools sort: failed to read header from "l11.bam"
+[W::hts_set_opt] Cannot change block size for this format
+samtools sort: failed to read header from "l12.bam"
+[W::hts_set_opt] Cannot change block size for this format
+samtools sort: failed to read header from "l13.bam"
+[W::hts_set_opt] Cannot change block size for this format
+samtools sort: failed to read header from "l14.bam"
+[W::hts_set_opt] Cannot change block size for this format
+samtools sort: failed to read header from "l15.bam"
+[W::hts_set_opt] Cannot change block size for this format
+samtools sort: failed to read header from "l16.bam"
+[W::hts_set_opt] Cannot change block size for this format
+samtools sort: failed to read header from "l17.bam"
+[W::hts_set_opt] Cannot change block size for this format
+samtools sort: failed to read header from "l18.bam"
+[W::hts_set_opt] Cannot change block size for this format
+samtools sort: failed to read header from "l19.bam"
+[W::hts_set_opt] Cannot change block size for this format
+samtools sort: failed to read header from "l1.bam"
+[W::hts_set_opt] Cannot change block size for this format
+samtools sort: failed to read header from "l20.bam"
+[W::hts_set_opt] Cannot change block size for this format
+samtools sort: failed to read header from "l2.bam"
+[W::hts_set_opt] Cannot change block size for this format
+samtools sort: failed to read header from "l3.bam"
+[W::hts_set_opt] Cannot change block size for this format
+samtools sort: failed to read header from "l4.bam"
+[W::hts_set_opt] Cannot change block size for this format
+samtools sort: failed to read header from "l5.bam"
+[W::hts_set_opt] Cannot change block size for this format
+samtools sort: failed to read header from "l6.bam"
+[W::hts_set_opt] Cannot change block size for this format
+samtools sort: failed to read header from "l7.bam"
+[W::hts_set_opt] Cannot change block size for this format
+samtools sort: failed to read header from "l8.bam"
+[W::hts_set_opt] Cannot change block size for this format
+samtools sort: failed to read header from "l9.bam"
+[E::hts_open_format] Failed to open file "sorted*.bam" : No such file or directory
+samtools index: failed to open "sorted*.bam": No such file or directory
