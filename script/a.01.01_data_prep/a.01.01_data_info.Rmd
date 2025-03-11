@@ -32,7 +32,7 @@ This study conducted a genome-wide detection of the selection in the *Golden Glo
 
 # Download Data
 
-```{bash}
+```{bash, eval=FALSE}
 #!/bin/sh
 #SBATCH --ntasks-per-node=4
 #SBATCH --nodes=1

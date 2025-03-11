@@ -28,58 +28,21 @@ This study conducted a genome-wide selection scan in the *Golden Glow* maize pop
 - **Cycle 30** represents the domesticated population after 30 generations of artificial selection.
 - The **reference genome** used for this study was *B73 Version 2*.
 
-## Download Data
+# HW1
+Full document is provided here: [HW1](script/a.01.01_data_prep/a.01.01_data_info.html)
 
-To download sequencing data and reference genome files, use the following script:
+To download sequencing data and reference genome files, the following link is avaliable:
 
-### **SLURM Batch Script for Data Download**
-```bash
-#!/bin/sh
-#SBATCH --ntasks-per-node=4
-#SBATCH --nodes=1
-#SBATCH --mem=16gb
-#SBATCH --time=36:00:00
-#SBATCH --job-name=down30
-#SBATCH --mail-user=nathanchu@huskers.unl.edu
-#SBATCH --mail-type=ALL
-#SBATCH --error=../log/30.err
-#SBATCH --output=../log/30.out
+[Reference Genome](https://download.maizegdb.org/Zm-B73-REFERENCE-NAM-5.0)
+[Cycle 0](script/a.01.01_data_prep/downloadseq0.sh)
+[Cycle 30](script/a.01.01_data_prep/downloadseq30.sh)
 
-module load SRAtoolkit/2.11
+# HW2
 
-# Define directories
-DATA_DIR30=../data/cycle_30/sra
-FASTQ_DIR30=../data/cycle_30/fastq
-DATA_DIR0=../data/cycle_0/sra
-FASTQ_DIR0=../data/cycle_0/fastq
+HW2 is about Fst calculation between cycle 0 and cycle 30, and before that, we need to map the reads to the reference genome and do the SNP calling.
 
-# SRR IDs for Cycle 30
-SRR_IDS30=("SRR801187" "SRR801188" "SRR801189" "SRR801190"
-         "SRR801191" "SRR801192" "SRR801194" "SRR801195" "SRR801196")
+[HW2 Map Genome](script/b.01.01_map_genome/b.01.01_map_to_refgenome.html)
+[HW2 SNP Calling](script/b.01.02_snp_calling/b.01.02_SNP_calling.html)
+[HW2 Fst Calculation](script/b.01.03_Fst_cal/b.01.03_Fst_calculation.html)
 
-# Download and convert Cycle 30 data
-prefetch --max-size 200G --output-directory $DATA_DIR30 ${SRR_IDS30[@]}
 
-for SRR_ID in ${SRR_IDS30[@]}; do
-    fasterq-dump --split-files --threads 16 $DATA_DIR30/$SRR_ID -O $FASTQ_DIR30 &
-done
-
-# SRR IDs for Cycle 0
-SRR_IDS0=("SRR801164" "SRR801169" "SRR801170" "SRR801174"
-         "SRR801175" "SRR801176" "SRR801177" "SRR801178")
-
-# Download and convert Cycle 0 data
-prefetch --max-size 200G --output-directory $DATA_DIR0 ${SRR_IDS0[@]}
-
-for SRR_ID in ${SRR_IDS0[@]}; do
-    fasterq-dump --split-files --threads 16 $DATA_DIR0/$SRR_ID -O $FASTQ_DIR0 &
-done
-
-# Download reference genome
-cd ../data/ref
-wget -c https://download.maizegdb.org/B73_RefGen_v2/B73_RefGen_v2.fa.gz
-gunzip B73_RefGen_v2.fa.gz
-
-# Download reference genome annotation
-wget -c https://download.maizegdb.org/B73_RefGen_v2/ZmB73_5a.59_WGS.gff3.gz
-gunzip ZmB73_5a.59_WGS.gff3.gz

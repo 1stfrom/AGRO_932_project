@@ -1,0 +1,70 @@
+---
+title: "Fst Calculation"
+author: "Nathan Ma"
+date: "2025-03-11"
+output: html_document
+---
+
+# Fst value for each site
+
+```{r, eval=FALSE}
+library("data.table")
+geno <- fread("largedata/sorghum/snp_calls.txt", header=FALSE)
+
+names(geno) <- c("chr", "pos", "ref", "alt", "quality", "depth", paste0("l",1:19))
+
+
+geno <- as.data.frame(geno)
+for(i in 7:26){
+  # replace slash and everything after it as nothing
+  geno$newcol <- gsub("/.*", "", geno[,i] )
+  # extract the line name
+  nm <- names(geno)[i]
+  # assign name for this allele
+  names(geno)[ncol(geno)] <- paste0(nm, sep="_a1")
+  geno$newcol <- gsub(".*/", "", geno[,i] )
+  names(geno)[ncol(geno)] <- paste0(nm, sep="_a2")
+}
+```
+
+---
+
+
+## Compute p1, p2, p
+
+
+```{r, eval=FALSE}
+geno[geno == "."] <- NA
+names(geno)
+
+geno$p <- apply(geno[, 25:66], 1, function(x) {sum( x == 0) })
+geno$p <- geno$p/40
+
+geno$p1 <- apply(geno[, 25:46], 1, function(x) {sum(x ==0 )})
+geno$p1 <- geno$p1/20
+
+geno$p2 <- apply(geno[, 47:66], 1, function(x) {sum(x ==0) })
+geno$p2 <- geno$p2/20
+```
+
+Then finally,
+
+```{r, eval=FALSE}
+geno$fst <- with(geno, ((p1-p)^2 + (p2-p)^2)/(2*p*(1-p)) )
+```
+
+Output the Fst results
+
+```{r, eval=FALSE}
+write.table(geno, "cache/fst.csv", sep=",", row.names = FALSE, quote=FALSE)
+```
+
+---
+
+## Visualize the results on my local computer
+
+```{r, eval=FALSE}
+fst <- read.csv("cache/fst.csv")
+
+plot(fst$pos, fst$fst, xlab="Physical position", ylab="Fst value", main="")
+```
