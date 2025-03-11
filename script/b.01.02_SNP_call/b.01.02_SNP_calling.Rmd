@@ -1,0 +1,96 @@
+---
+title: "SNP Calling"
+author: "Nathan Ma"
+date: "2025-03-11"
+output: html_document
+---
+
+# SNP Calling
+
+```{bash, eval=FALSE}
+#!/bin/sh
+#SBATCH --ntasks-per-node=10
+#SBATCH --nodes=1
+#SBATCH --mem=64gb
+#SBATCH --time=60:00:00
+#SBATCH --job-name=SNP
+#SBATCH --array=1-12
+#SBATCH --mail-user=nathanchu@huskers.unl.edu
+#SBATCH --mail-type=ALL
+#SBATCH --error=../../log/stdout-%A_%a.log
+#SBATCH --output=../../log/stdout-%A_%a.log
+
+cd ../../data/largedata/cycle_0
+module load samtools bcftools
+SAMPLE_ID=$SLURM_ARRAY_TASK_ID
+# Step 1: Index the sorted BAM file (if not already indexed)
+if [ ! -f sorted_Z${SAMPLE_ID}.bam.bai ]; then
+    samtools index sorted_Z${SAMPLE_ID}.bam
+fi
+# Step 2: Generate mpileup file
+bcftools mpileup -f ../ref/Zm-B73-REFERENCE-NAM-5.0.fa sorted_Z${SAMPLE_ID}.bam > Z${SAMPLE_ID}.mpileup
+# Step 3: Call SNPs with conserved calling and output everything
+bcftools call -c -Ob -o Z${SAMPLE_ID}.bcf Z${SAMPLE_ID}.mpileup
+# Step 4: Index the VCF file
+bcftools index Z${SAMPLE_ID}.bcf
+
+#################################
+
+#!/bin/sh
+#SBATCH --ntasks-per-node=10
+#SBATCH --nodes=1
+#SBATCH --mem=64gb
+#SBATCH --time=60:00:00
+#SBATCH --job-name=SNP
+#SBATCH --array=1-12
+#SBATCH --mail-user=nathanchu@huskers.unl.edu
+#SBATCH --mail-type=ALL
+#SBATCH --error=../../log/stdout-%A_%a.log
+#SBATCH --output=../../log/stdout-%A_%a.log
+
+cd ../../data/largedata/cycle_30
+module load samtools bcftools
+SAMPLE_ID=$SLURM_ARRAY_TASK_ID
+if [ ! -f sorted_T${SAMPLE_ID}.bam.bai ]; then
+    samtools index sorted_T${SAMPLE_ID}.bam
+fi
+bcftools mpileup -f ../ref/Zm-B73-REFERENCE-NAM-5.0.fa sorted_T${SAMPLE_ID}.bam > T${SAMPLE_ID}.mpileup
+bcftools call -c -Ob -o T${SAMPLE_ID}.bcf T${SAMPLE_ID}.mpileup
+bcftools index T${SAMPLE_ID}.bcf
+```
+
+# Merge All VCF Files
+
+```{bash, eval=FALSE}
+cd ../../cache/
+module load bcftools
+bcftools merge -Ob -o merged.bcf ../data/largedata/cycle_30/T{1..9}.bcf ../data/largedata/cycle_0/Z{1..8}.bcf
+bcftools index merged.bcf
+# get a summary of the VCF file
+bcftools stats merged.bcf > bcf_summary.txt
+
+# Filter for Biallelic SNPs
+bcftools view merged.bcf -m2 -M2 -v snps -Ob -o merged_biallelic_snps.bcf
+
+# get a summary again
+bcftools stats  merged_biallelic_snps.bcf > bcf_sum2.txt
+
+# convert to text file
+bcftools query -f '%CHROM\t%POS\t%REF\t%ALT\t%QUAL\t%DP[\t%GT]\n' merged_biallelic_snps.bcf > snp_calls.txt
+```
+
+# Convert VCF to PLINK format
+
+```{bash, eval=FALSE}
+module load plink/1.90
+# convert to plink format
+plink --bcf merged_biallelic_snps.bcf --allow-extra-chr --set-missing-var-ids @:# --make-bed --out merged_variants
+
+# move merged files to a new folder
+mkdir merged
+mv merged_varaints* merged/
+cd merged/
+
+# get the missing data and maf PCA
+plink --bfile merged_variants --allow-extra-chr --missing --freq --pca 20 --out merged_variants
+```
