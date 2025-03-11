@@ -41,7 +41,7 @@ To download sequencing data and reference genome files, the following link is av
 
 HW2 is about Fst calculation between cycle 0 and cycle 30, and before that, we need to map the reads to the reference genome and do the SNP calling.
 
-[HW2 Map Genome](script/b.01.01_map_genome/b.01.01_map_to_refgenome.html)
+[HW2 Map Genome](script/b.01.01_map_ref/b.01.01_map_to_refgenome.html)
 [HW2 SNP Calling](script/b.01.02_snp_calling/b.01.02_SNP_calling.html)
 [HW2 Fst Calculation](script/b.01.03_Fst_cal/b.01.03_Fst_calculation.html)
 
