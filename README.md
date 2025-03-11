@@ -6,7 +6,7 @@ Genetics. 2014 Mar;196(3):829-840.
 
 ## Experimental Design
 
-This study conducted a genome-wide selection scan in the *Golden Glow* maize population, which underwent artificial selection for increased ear number over 30 generations. A total of 48 plants were randomly chosen from cycle 0 and cycle 30. The effective population size (\(N_e\)) ranged between **384 and 667 individuals**.
+This study conducted a genome-wide selection scan in the *Golden Glow* maize population, which underwent artificial selection for increased ear number over 30 generations. A total of 48 plants were randomly chosen from cycle 0 and cycle 30. The effective population size (N<sub>e</sub>) ranged between **384 and 667 individuals**.
 
 ## Materials and Methods
 
