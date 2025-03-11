@@ -29,20 +29,20 @@ This study conducted a genome-wide selection scan in the *Golden Glow* maize pop
 - The **reference genome** used for this study was *B73 Version 2*.
 
 # HW1
-Full document is provided here: [HW1](script/a.01.01_data_prep/a.01.01_data_info.html)
+Full document is provided here: [HW1](https://1stfrom.github.io/AGRO_932_project/script/a.01.01_data_prep/a.01.01_data_info.html)
 
 To download sequencing data and reference genome files, the following link is avaliable:
 
-[Reference Genome](https://download.maizegdb.org/Zm-B73-REFERENCE-NAM-5.0)
-[Cycle 0](script/a.01.01_data_prep/downloadseq0.sh)
-[Cycle 30](script/a.01.01_data_prep/downloadseq30.sh)
+- [Reference Genome](https://download.maizegdb.org/Zm-B73-REFERENCE-NAM-5.0)
+- [Cycle 0](script/a.01.01_data_prep/downloadseq0.sh)
+- [Cycle 30](script/a.01.01_data_prep/downloadseq30.sh)
 
 # HW2
 
 HW2 is about Fst calculation between cycle 0 and cycle 30, and before that, we need to map the reads to the reference genome and do the SNP calling.
 
-[HW2 Map Genome](script/b.01.01_map_ref/b.01.01_map_to_refgenome.html)
-[HW2 SNP Calling](script/b.01.02_snp_calling/b.01.02_SNP_calling.html)
-[HW2 Fst Calculation](script/b.01.03_Fst_cal/b.01.03_Fst_calculation.html)
+- [HW2 Map Genome](https://1stfrom.github.io/AGRO_932_project/script/b.01.01_map_ref/b.01.01_map_to_refgenome.html)
+- [HW2 SNP Calling](https://1stfrom.github.io/AGRO_932_project/script/b.01.02_snp_calling/b.01.02_SNP_calling.html)
+- [HW2 Fst Calculation](https://1stfrom.github.io/AGRO_932_project/script/b.01.03_Fst_cal/b.01.03_Fst_calculation.html)
 
 
