@@ -1,10 +1,10 @@
 #!/bin/sh
 #SBATCH --ntasks-per-node=10
 #SBATCH --nodes=1
-#SBATCH --mem=64gb
-#SBATCH --time=60:00:00
+#SBATCH --mem=60gb
+#SBATCH --time=24:00:00
 #SBATCH --job-name=SNP
-#SBATCH --array=1-12
+#SBATCH --array=1-8
 #SBATCH --mail-user=nathanchu@huskers.unl.edu
 #SBATCH --mail-type=ALL
 #SBATCH --error=../../log/stdout-%A_%a.log
