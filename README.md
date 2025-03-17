@@ -45,4 +45,7 @@ HW2 is about Fst calculation between cycle 0 and cycle 30, and before that, we n
 - [HW2 SNP Calling](https://1stfrom.github.io/AGRO_932_project/script/b.01.02_SNP_call/b.01.02_SNP_calling.html)
 - [HW2 Fst Calculation](https://1stfrom.github.io/AGRO_932_project/script/b.01.03_Fst_cal/b.01.03_Fst_calculation.html)
 
+# Fst Plot
+
+- [Fst Plot](out/Fst.png)
 
