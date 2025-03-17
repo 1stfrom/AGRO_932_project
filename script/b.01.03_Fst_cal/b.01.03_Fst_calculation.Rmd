@@ -11,11 +11,11 @@ output: html_document
 library("data.table")
 geno <- fread("largedata/sorghum/snp_calls.txt", header=FALSE)
 
-names(geno) <- c("chr", "pos", "ref", "alt", "quality", "depth", paste0("l",1:19))
+names(geno) <- c("chr", "pos", "ref", "alt", "quality", "depth", paste0("l",1:17))
 
 
 geno <- as.data.frame(geno)
-for(i in 7:26){
+for(i in 7:23){
   # replace slash and everything after it as nothing
   geno$newcol <- gsub("/.*", "", geno[,i] )
   # extract the line name
@@ -37,13 +37,13 @@ for(i in 7:26){
 geno[geno == "."] <- NA
 names(geno)
 
-geno$p <- apply(geno[, 25:66], 1, function(x) {sum( x == 0) })
+geno$p <- apply(geno[, 24:57], 1, function(x) {sum( x == 0) })
 geno$p <- geno$p/40
 
-geno$p1 <- apply(geno[, 25:46], 1, function(x) {sum(x ==0 )})
+geno$p1 <- apply(geno[, 24:41], 1, function(x) {sum(x ==0 )})
 geno$p1 <- geno$p1/20
 
-geno$p2 <- apply(geno[, 47:66], 1, function(x) {sum(x ==0) })
+geno$p2 <- apply(geno[, 42:57], 1, function(x) {sum(x ==0) })
 geno$p2 <- geno$p2/20
 ```
 
