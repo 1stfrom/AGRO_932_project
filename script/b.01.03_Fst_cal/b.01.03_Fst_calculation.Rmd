@@ -64,7 +64,36 @@ write.table(geno, "cache/fst.csv", sep=",", row.names = FALSE, quote=FALSE)
 ## Visualize the results on my local computer
 
 ```{r, eval=FALSE}
-fst <- read.csv("cache/fst.csv")
+library(ggplot2)
+library(dplyr)
 
-plot(fst$pos, fst$fst, xlab="Physical position", ylab="Fst value", main="")
+fst <- fst %>% filter(!grepl("^scaf", chr))
+
+# align chromosome
+chrom_offsets <- fst %>%
+  group_by(chr) %>%
+  summarize(chr_len = max(pos), .groups = "drop") %>%
+  arrange(chr) %>%
+  mutate(cum_offset = cumsum(lag(chr_len, default = 0)))
+
+fst <- fst %>%
+  left_join(chrom_offsets %>% select(chr, cum_offset), by = "chr") %>%
+  mutate(pos_cum = pos + cum_offset)
+
+axis_df <- chrom_offsets %>%
+  mutate(center = cum_offset + chr_len / 2)
+
+# Create the Manhattan plot
+p <- ggplot(fst, aes(x = pos_cum, y = fst, color = chr)) +
+  geom_point(alpha = 0.6, size = 0.8) +  # smaller point size
+  scale_x_continuous(label = axis_df$chr, breaks = axis_df$center) +
+  labs(title = "Manhattan Plot of Fst Values",
+       x = "Chromosome",
+       y = "Fst") +
+  theme_bw() +
+  theme(plot.title = element_text(hjust = 0.5),
+        legend.position = "none")  # Remove legend if not needed
+
+# Save the plot directly as a PNG file
+ggsave("Fst.png", plot = p, width = 12, height = 6, dpi = 300)
 ```

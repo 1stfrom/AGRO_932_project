@@ -398,9 +398,38 @@ geno$p2 &lt;- geno$p2/20</code></pre>
 </div>
 <div id="visualize-the-results-on-my-local-computer" class="section level2">
 <h2>Visualize the results on my local computer</h2>
-<pre class="r"><code>fst &lt;- read.csv(&quot;cache/fst.csv&quot;)
+<pre class="r"><code>library(ggplot2)
+library(dplyr)
 
-plot(fst$pos, fst$fst, xlab=&quot;Physical position&quot;, ylab=&quot;Fst value&quot;, main=&quot;&quot;)</code></pre>
+fst &lt;- fst %&gt;% filter(!grepl(&quot;^scaf&quot;, chr))
+
+# align chromosome
+chrom_offsets &lt;- fst %&gt;%
+  group_by(chr) %&gt;%
+  summarize(chr_len = max(pos), .groups = &quot;drop&quot;) %&gt;%
+  arrange(chr) %&gt;%
+  mutate(cum_offset = cumsum(lag(chr_len, default = 0)))
+
+fst &lt;- fst %&gt;%
+  left_join(chrom_offsets %&gt;% select(chr, cum_offset), by = &quot;chr&quot;) %&gt;%
+  mutate(pos_cum = pos + cum_offset)
+
+axis_df &lt;- chrom_offsets %&gt;%
+  mutate(center = cum_offset + chr_len / 2)
+
+# Create the Manhattan plot
+p &lt;- ggplot(fst, aes(x = pos_cum, y = fst, color = chr)) +
+  geom_point(alpha = 0.6, size = 0.8) +  # smaller point size
+  scale_x_continuous(label = axis_df$chr, breaks = axis_df$center) +
+  labs(title = &quot;Manhattan Plot of Fst Values&quot;,
+       x = &quot;Chromosome&quot;,
+       y = &quot;Fst&quot;) +
+  theme_bw() +
+  theme(plot.title = element_text(hjust = 0.5),
+        legend.position = &quot;none&quot;)  # Remove legend if not needed
+
+# Save the plot directly as a PNG file
+ggsave(&quot;Fst.png&quot;, plot = p, width = 12, height = 6, dpi = 300)</code></pre>
 </div>
 </div>
 
